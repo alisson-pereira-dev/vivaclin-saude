@@ -4,7 +4,6 @@ import { useRef, useState } from "react";
 import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { RotateCw } from "lucide-react";
 
 interface TeamMember {
   slug: string;
@@ -65,7 +64,19 @@ export default function TeamMemberCard({ member }: { member: TeamMember }) {
   );
 
   return (
-    <div className="h-full [perspective:1200px]">
+    <div
+      role="button"
+      tabIndex={0}
+      onClick={() => setIsFlipped((flipped) => !flipped)}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          setIsFlipped((flipped) => !flipped);
+        }
+      }}
+      aria-label={`Saiba mais sobre ${member.namePrefix} ${member.nameRest}`}
+      className="h-full cursor-pointer [perspective:1200px]"
+    >
       <div
         ref={innerRef}
         className="relative h-full [transform-style:preserve-3d]"
@@ -87,37 +98,22 @@ export default function TeamMemberCard({ member }: { member: TeamMember }) {
               <span className="font-semibold">{member.namePrefix}</span>{" "}
               <span className="text-text-body/80">{member.nameRest}</span>
             </h3>
-            <button
-              type="button"
-              onClick={() => setIsFlipped(true)}
-              aria-label={`Saiba mais sobre ${member.namePrefix} ${member.nameRest}`}
-              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-primary/10 text-brand-primary transition-colors hover:bg-brand-primary hover:text-white"
-            >
-              <RotateCw className="h-4 w-4" />
-            </button>
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-primary/10 text-brand-primary">
+              <span className="h-4 w-4">{SOCIALS[0].icon}</span>
+            </span>
           </div>
         </div>
 
         {/* VERSO */}
         <div className="absolute inset-0 flex h-full flex-col rounded-2xl bg-white p-6 shadow-sm [backface-visibility:hidden] [transform:rotateY(180deg)]">
-          <div className="flex items-start justify-between gap-2">
-            <div>
-              <h3 className="font-body text-lg text-brand-dark">
-                <span className="font-semibold">{member.namePrefix}</span>{" "}
-                <span className="text-text-body/80">{member.nameRest}</span>
-              </h3>
-              <span className="font-body text-xs font-medium tracking-wide text-brand-primary uppercase">
-                {member.role}
-              </span>
-            </div>
-            <button
-              type="button"
-              onClick={() => setIsFlipped(false)}
-              aria-label="Voltar"
-              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-primary/10 text-brand-primary transition-colors hover:bg-brand-primary hover:text-white"
-            >
-              <RotateCw className="h-4 w-4" />
-            </button>
+          <div>
+            <h3 className="font-body text-lg text-brand-dark">
+              <span className="font-semibold">{member.namePrefix}</span>{" "}
+              <span className="text-text-body/80">{member.nameRest}</span>
+            </h3>
+            <span className="font-body text-xs font-medium tracking-wide text-brand-primary uppercase">
+              {member.role}
+            </span>
           </div>
 
           {member.highlights && member.highlights.length > 0 ? (
