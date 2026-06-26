@@ -52,6 +52,9 @@ export default function TeamMemberCard({ member }: { member: TeamMember }) {
   const innerRef = useRef<HTMLDivElement>(null);
   const [isFlipped, setIsFlipped] = useState(false);
 
+  const [title, ...firstNameParts] = member.namePrefix.split(" ");
+  const fullName = [...firstNameParts, member.nameRest].join(" ");
+
   useGSAP(
     () => {
       gsap.to(innerRef.current, {
@@ -107,9 +110,11 @@ export default function TeamMemberCard({ member }: { member: TeamMember }) {
         {/* VERSO */}
         <div className="absolute inset-0 flex h-full flex-col rounded-2xl bg-white p-6 shadow-sm [backface-visibility:hidden] [transform:rotateY(180deg)]">
           <div>
-            <h3 className="font-body text-lg text-brand-dark">
-              <span className="font-semibold">{member.namePrefix}</span>{" "}
-              <span className="text-text-body/80">{member.nameRest}</span>
+            <h3 className="text-lg">
+              <span className="font-body text-brand-dark">{title}</span>{" "}
+              <span className="font-heading text-brand-dark italic">
+                {fullName}
+              </span>
             </h3>
             <span className="font-body text-xs font-medium tracking-wide text-brand-primary uppercase">
               {member.role}
