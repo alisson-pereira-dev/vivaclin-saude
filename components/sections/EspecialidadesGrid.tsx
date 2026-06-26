@@ -102,26 +102,24 @@ export default function EspecialidadesGrid() {
           <div className="pointer-events-none absolute -top-10 -right-10 h-40 w-40 rounded-full bg-white/10 blur-2xl" />
           <div className="pointer-events-none absolute -bottom-12 -left-12 h-44 w-44 rounded-full bg-white/5 blur-3xl" />
 
-          <div className="relative flex flex-1 flex-col items-start justify-center gap-4 p-6 sm:p-8">
-            <div className="rounded-2xl bg-white/10 p-6 ring-1 ring-white/20 backdrop-blur-md">
-              <Heart className="h-6 w-6 fill-white text-white" />
-              <h3 className="mt-4 font-heading text-xl text-white italic">
-                Estamos aqui pra cuidar de você
-              </h3>
-              <p className="mt-2 font-body text-sm text-white/85">
-                Não sabe por onde começar? Fale com a gente — vamos te ouvir
-                com atenção e te ajudar a encontrar o cuidado certo.
-              </p>
-              <a
-                href={WHATSAPP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/40 px-4 py-2 font-body text-sm font-semibold text-white transition-colors hover:bg-white/10"
-              >
-                <MessageCircle className="h-4 w-4" />
-                Falar no WhatsApp
-              </a>
-            </div>
+          <div className="relative flex flex-1 flex-col items-start justify-center gap-2 rounded-xl bg-white/10 p-6 ring-1 ring-white/20 backdrop-blur-md sm:p-8">
+            <Heart className="h-6 w-6 fill-white text-white" />
+            <h3 className="mt-4 font-heading text-xl text-white italic">
+              Estamos aqui pra cuidar de você
+            </h3>
+            <p className="mt-2 font-body text-sm text-white/85">
+              Não sabe por onde começar? Fale com a gente — vamos te ouvir
+              com atenção e te ajudar a encontrar o cuidado certo.
+            </p>
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/40 px-4 py-2 font-body text-sm font-semibold text-white transition-colors hover:bg-white/10"
+            >
+              <MessageCircle className="h-4 w-4" />
+              Falar no WhatsApp
+            </a>
           </div>
         </div>
       </div>
