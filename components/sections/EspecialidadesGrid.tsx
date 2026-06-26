@@ -6,27 +6,27 @@ const SPECIALTIES = [
   {
     slug: "clinica-geral",
     title: "Clínica Geral",
-    image: "/images/atuacao-clinica-geral.jpeg",
+    image: "/images/atuacao-clinica-geral-v2.jpeg",
     excerpt:
       "A Clínica Geral é considerada o ponto de partida para o cuidado com a saúde.",
   },
   {
     slug: "reumatologia",
     title: "Reumatologia",
-    image: "/images/atuacao-reumatologia.jpeg",
+    image: "/images/atuacao-reumatologia-v2.jpeg",
     excerpt:
       "As doenças reumatológicas englobam um conjunto de condições que afetam articulações, músculos, ossos e tecidos conjuntivos, além das chamadas doenças autoimunes sistêmicas.",
   },
   {
     slug: "saude-digestiva",
     title: "Saúde Digestiva",
-    image: "/images/atuacao-saude-digestiva.jpeg",
+    image: "/images/atuacao-saude-digestiva-v2.jpeg",
     excerpt: "A Saúde Digestiva é uma das áreas mais importantes da medicina.",
   },
   {
     slug: "saude-do-idoso",
     title: "Saúde do Idoso",
-    image: "/images/atuacao-saude-do-idoso.jpeg",
+    image: "/images/atuacao-saude-do-idoso-v2.jpeg",
     excerpt:
       "A saúde do idoso é um segmento da medicina que acompanha as mudanças do envelhecimento, cuidando da saúde de pessoas na terceira idade de forma integral, contínua, preventiva e até paliativa.",
   },
@@ -40,7 +40,7 @@ const SPECIALTIES = [
   {
     slug: "clinica-geral",
     title: "Clínica Geral",
-    image: "/images/atuacao-clinica-geral.jpeg",
+    image: "/images/atuacao-clinica-geral-v2.jpeg",
     excerpt:
       "A Clínica Geral é considerada o ponto de partida para o cuidado com a saúde.",
   },
