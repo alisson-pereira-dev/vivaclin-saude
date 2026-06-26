@@ -116,7 +116,7 @@ export default function TeamMemberCard({ member }: { member: TeamMember }) {
                 {fullName}
               </span>
             </h3>
-            <span className="font-body text-xs font-medium tracking-wide text-brand-primary uppercase">
+            <span className="font-body text-sm font-medium tracking-wide text-brand-primary uppercase">
               {member.role}
             </span>
           </div>

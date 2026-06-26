@@ -5,7 +5,7 @@ import { WHATSAPP_URL } from "@/lib/constants";
 export default function CTAFinal() {
   return (
     <section className="bg-[#FAFAF8] px-6 py-20 sm:px-10 sm:py-24 lg:px-20">
-      <div className="relative mx-auto min-h-[440px] max-w-[1536px] overflow-hidden rounded-3xl sm:aspect-[3197/1324] sm:min-h-0">
+      <div className="relative mx-auto min-h-[490px] max-w-[1536px] overflow-hidden rounded-3xl sm:aspect-[3210/1427] sm:min-h-0">
         <Image
           src="/images/banner_cta_clin.png"
           alt="Médica e paciente da VivaClin Saúde"
