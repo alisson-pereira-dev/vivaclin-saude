@@ -31,8 +31,7 @@ interface Condition {
 
 interface Review {
   name: string;
-  role: string;
-  tag: "Fibromialgia" | "Atendimento" | "Acolhimento";
+  meta: string;
   content: string;
   rating: number;
   time: string;
@@ -78,52 +77,69 @@ const CONDITIONS: Condition[] = [
   },
 ];
 
+const GOOGLE_REVIEWS_URL = "https://maps.app.goo.gl/cRrJeuxN6TSghugS8";
+
 const REVIEWS: Review[] = [
   {
-    name: "Rita de Cássia S.",
-    role: "Paciente de Fibromialgia • Contagem, MG",
-    tag: "Fibromialgia",
+    name: "Thabata Teixeira Almeida",
+    meta: "Local Guide · 23 avaliações · 2 fotos",
     content:
-      "Depois de passar por 4 médicos que diziam que minha dor era estresse, a Dra. Juliana me ouviu com paciência por quase uma hora. Explicou cada detalhe do tratamento da fibromialgia. Hoje durmo melhor e voltei a caminhar sem dor.",
+      "Conheci a clínica pesquisando na internet e me encantei com o tratamento e a facilidade de explicar o que estava acontecendo comigo! Recomendo!",
     rating: 5,
-    time: "Há 2 meses",
-    initials: "RS",
+    time: "Há 5 meses",
+    initials: "TA",
   },
   {
-    name: "Carlos Alberto G.",
-    role: "Acompanhante (Filho) • Betim, MG",
-    tag: "Atendimento",
+    name: "Pedro Leonardi",
+    meta: "12 avaliações · 2 fotos",
     content:
-      "Levei minha mãe de 76 anos que sofria muito com artrose nos joelhos. O atendimento da Dra. Juliana é diferenciado, muito humana e atenciosa. A estrutura da clínica VivaClin é ótima, fácil de estacionar e o retorno foi muito tranquilo.",
+      "Consultei na vivaclin a primeira vez e agora só confio neles. Indico pra todos amigos e familiares! Excelente!",
     rating: 5,
-    time: "Há 1 mês",
-    initials: "CG",
+    time: "Há 5 meses",
+    initials: "PL",
   },
   {
-    name: "Mariana Oliveira L.",
-    role: "Paciente de Dor Crônica • Contagem, MG",
-    tag: "Acolhimento",
+    name: "Adonay Felipe",
+    meta: "4 avaliações",
     content:
-      "Dra. Juliana é maravilhosa! Muito detalhista na investigação das minhas dores nos dedos. Excelente profissional, muito segura e o acompanhamento dos laudos para o meu afastamento foi impecável.",
+      "Gostei muito do atendimento da clínica. Profissionais sérias e competentes. Indico de olhos fechados.",
     rating: 5,
-    time: "Há 3 semanas",
-    initials: "ML",
+    time: "Há 6 meses",
+    initials: "AF",
+  },
+  {
+    name: "Sabrina Nascimento",
+    meta: "Local Guide · 12 avaliações · 1 foto",
+    content:
+      "Ótima localização, ótimo atendimento e excelentes profissionais. Recomendo de olhos fechados, gostei muito.",
+    rating: 5,
+    time: "Há 5 meses",
+    initials: "SN",
+  },
+  {
+    name: "Paula",
+    meta: "Local Guide · 25 avaliações",
+    content:
+      "Minha experiência na Vivaclin foi excelente. Dra. Juliana é uma profissional exemplar, atenciosa, cuidadosa, com muito carinho e dedicação orienta cada situação diante do tratamento, um atendimento humanizado e acolhedor. Gratidão! Super indico 🙏. Não tive contato com as demais profissionais, mas acredito que pelo perfil da clínica não são diferentes da Dra. Juliana.",
+    rating: 5,
+    time: "Há 3 meses",
+    initials: "P",
   },
 ];
 
 const SPACES = [
   {
-    src: "/images/reumatologia-espaco-01.jpg",
+    src: "/images/reumatologia-espaco-03.jpg",
     label: "Recepção VivaClin",
     desc: "Ambiente elegante, climatizado e com total acessibilidade",
   },
   {
-    src: "/images/reumatologia-espaco-02.jpg",
+    src: "/images/reumatologia-espaco-01.jpg",
     label: "Consultório Médico",
     desc: "Espaço humanizado projetado para consultas com escuta atenta",
   },
   {
-    src: "/images/reumatologia-espaco-03.jpg",
+    src: "/images/reumatologia-espaco-02.jpg",
     label: "Conforto e Atendimento",
     desc: "Detalhes preparados com carinho para o seu bem-estar",
   },
@@ -133,9 +149,6 @@ const WHATSAPP_REUMATO_URL =
   "https://wa.me/5531920090831?text=Olá!%20Gostaria%20de%20agendar%20uma%20consulta%20reumatológica%20com%20a%20Dra.%20Juliana%20Mendonça.";
 
 export default function ReumatologiaContent() {
-  const [activeReviewTag, setActiveReviewTag] = useState<
-    "Todos" | "Fibromialgia" | "Atendimento" | "Acolhimento"
-  >("Todos");
   const [activeSpaceIndex, setActiveSpaceIndex] = useState(0);
 
   const handleNextSpace = () => {
@@ -145,11 +158,6 @@ export default function ReumatologiaContent() {
   const handlePrevSpace = () => {
     setActiveSpaceIndex((prev) => (prev - 1 + SPACES.length) % SPACES.length);
   };
-
-  const filteredReviews =
-    activeReviewTag === "Todos"
-      ? REVIEWS
-      : REVIEWS.filter((r) => r.tag === activeReviewTag);
 
   return (
     <>
@@ -172,15 +180,17 @@ export default function ReumatologiaContent() {
               <h1 className="font-heading text-3xl leading-[1.12] tracking-tight text-brand-dark sm:text-5xl lg:text-6xl">
                 Dor nas articulações que não passa?{" "}
                 <em className="font-light text-brand-primary italic">
-                  Pode ser hora de procurar um reumatologista.
+                  Pode ser hora de procurar atendimento especializado na área
+                  reumatológica.
                 </em>
               </h1>
 
               <p className="max-w-2xl font-body text-base leading-relaxed text-text-body sm:text-lg">
-                Atendimento particular com a <strong>Dra. Juliana Mendonça</strong>,
-                na <strong>VivaClin</strong>, em Contagem. Diagnóstico cuidadoso e
-                acompanhamento contínuo para quem já tentou de tudo e ainda sente
-                dor.
+                Atendimento particular com a{" "}
+                <strong>Dra. Juliana Mendonça</strong>, na{" "}
+                <strong>VivaClin</strong>, em Contagem. Diagnóstico cuidadoso e
+                acompanhamento contínuo para quem já tentou de tudo e ainda
+                sente dor.
               </p>
 
               <div className="mt-2 flex w-full flex-col items-stretch gap-4 sm:mt-4 sm:w-auto sm:flex-row sm:items-center">
@@ -248,7 +258,10 @@ export default function ReumatologiaContent() {
       </section>
 
       {/* SEÇÃO 2 — O PROBLEMA */}
-      <section id="problema" className="bg-bg-neutral px-6 py-20 sm:px-10 sm:py-24 lg:px-20">
+      <section
+        id="problema"
+        className="bg-bg-neutral px-6 py-20 sm:px-10 sm:py-24 lg:px-20"
+      >
         <div className="mx-auto max-w-4xl">
           <div className="flex flex-col items-start gap-8">
             <div className="flex w-full flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
@@ -276,8 +289,8 @@ export default function ReumatologiaContent() {
 
               <p className="rounded-r-lg border-l-4 border-brand-primary bg-brand-primary/5 py-3 pl-4 font-body font-medium text-brand-dark italic">
                 Se isso descreve sua rotina, talvez o problema não seja
-                &quot;estresse&quot; ou &quot;idade&quot; — pode ser uma condição
-                reumatológica, e ela tem nome, explicação e tratamento.
+                &quot;estresse&quot; ou &quot;idade&quot; — pode ser uma
+                condição reumatológica, e ela tem nome, explicação e tratamento.
               </p>
 
               <div className="mt-2 flex flex-col items-start justify-between gap-6 border-t border-brand-soft/10 pt-4 sm:flex-row sm:items-center">
@@ -334,7 +347,9 @@ export default function ReumatologiaContent() {
               </div>
 
               <h2 className="mt-2 text-3xl leading-tight text-brand-dark sm:text-4xl lg:text-5xl">
-                <span className="font-body font-bold">Investigação detalhada</span>
+                <span className="font-body font-bold">
+                  Investigação detalhada
+                </span>
                 <br />
                 <span className="font-heading italic text-brand-primary">
                   e plano de tratamento contínuo
@@ -343,16 +358,18 @@ export default function ReumatologiaContent() {
 
               <div className="flex flex-col gap-4 font-body text-base leading-relaxed text-text-body sm:text-lg">
                 <p>
-                  Atendimento individualizado, com tempo real para ouvir o
-                  histórico antes de qualquer conduta. A consulta não termina em
-                  uma receita genérica — começa um acompanhamento, porque doença
-                  reumatológica se trata com continuidade, não com solução única.
+                  Cada consulta começa com tempo real pra ouvir sua história,
+                  seus exames antigos, o que você já tentou e não resolveu. Nada
+                  de receita genérica em cinco minutos. Aqui o cuidado é
+                  construído com calma, porque dor crônica não se trata com
+                  solução única, se trata com continuidade.
                 </p>
                 <p>
                   Para quem já circulou por vários médicos sem resposta clara, a
-                  proposta aqui é simples: investigar a fundo, explicar o que
-                  está acontecendo e construir um plano de tratamento que faça
-                  sentido pra sua rotina.
+                  proposta é simples: investigar a fundo, explicar o que está
+                  acontecendo no seu corpo e construir, junto com você, um plano
+                  que devolva qualidade de vida no seu dia a dia não só um exame
+                  normal.
                 </p>
               </div>
 
@@ -367,7 +384,10 @@ export default function ReumatologiaContent() {
       </section>
 
       {/* SEÇÃO 4 — CONDIÇÕES ATENDIDAS */}
-      <section id="tratamos" className="bg-bg-neutral px-6 py-20 sm:px-10 sm:py-24 lg:px-20">
+      <section
+        id="tratamos"
+        className="bg-bg-neutral px-6 py-20 sm:px-10 sm:py-24 lg:px-20"
+      >
         <div className="mx-auto max-w-[1536px]">
           <div className="mx-auto mb-16 flex max-w-3xl flex-col items-center gap-4 text-center">
             <h2 className="text-3xl leading-tight text-brand-dark sm:text-4xl lg:text-5xl">
@@ -467,7 +487,10 @@ export default function ReumatologiaContent() {
       </section>
 
       {/* SEÇÃO 6 — LOCALIZAÇÃO E ACESSO */}
-      <section id="localizacao" className="bg-bg-neutral px-6 py-20 sm:px-10 sm:py-24 lg:px-20">
+      <section
+        id="localizacao"
+        className="bg-bg-neutral px-6 py-20 sm:px-10 sm:py-24 lg:px-20"
+      >
         <div className="mx-auto max-w-7xl">
           <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-16">
             <div className="flex flex-col items-start gap-6 lg:col-span-5">
@@ -485,8 +508,8 @@ export default function ReumatologiaContent() {
               </h2>
 
               <p className="font-body text-base leading-relaxed text-text-body sm:text-lg">
-                Consultório de fácil acesso, com atendimento presencial e
-                online conforme a necessidade. Pacientes de Contagem e região,
+                Consultório de fácil acesso, com atendimento presencial e online
+                conforme a necessidade. Pacientes de Contagem e região,
                 incluindo Betim, já fazem parte da rotina da clínica.
               </p>
 
@@ -627,7 +650,9 @@ export default function ReumatologiaContent() {
             </span>
 
             <h2 className="text-3xl leading-tight text-brand-dark sm:text-4xl lg:text-5xl">
-              <span className="font-body font-bold">O que os pacientes dizem</span>
+              <span className="font-body font-bold">
+                O que os pacientes dizem
+              </span>
               <br />
               <span className="font-heading italic text-brand-primary">
                 recomendações e relatos reais
@@ -638,80 +663,52 @@ export default function ReumatologiaContent() {
               Cada estrela aqui é de alguém que também já passou por dor sem
               resposta.
             </p>
-
-            <div className="mt-4 flex flex-wrap items-center justify-center gap-2 font-body text-sm">
-              {(["Todos", "Fibromialgia", "Atendimento", "Acolhimento"] as const).map(
-                (tag) => (
-                  <button
-                    key={tag}
-                    onClick={() => setActiveReviewTag(tag)}
-                    className={`rounded-full border px-4 py-2 font-medium transition-all duration-300 ${
-                      activeReviewTag === tag
-                        ? "border-brand-primary bg-brand-primary text-white shadow-sm"
-                        : "border-brand-soft/30 bg-bg-neutral/40 text-brand-dark hover:bg-bg-neutral"
-                    }`}
-                  >
-                    {tag}
-                  </button>
-                ),
-              )}
-            </div>
           </div>
 
           <div className="grid grid-cols-1 items-start gap-6 md:grid-cols-3">
-            <AnimatePresence mode="popLayout">
-              {filteredReviews.map((review) => (
-                <motion.div
-                  layout
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.3 }}
-                  key={review.name}
-                  className="flex flex-col gap-4 rounded-2xl border border-brand-soft/20 bg-bg-neutral/40 p-6 shadow-xs"
-                >
-                  <div className="flex w-full items-center justify-between">
-                    <div className="flex gap-0.5 text-brand-primary">
-                      {Array.from({ length: review.rating }).map((_, i) => (
-                        <Star
-                          key={i}
-                          className="h-4 w-4 shrink-0 fill-brand-primary text-brand-primary"
-                        />
-                      ))}
-                    </div>
-                    <span className="font-body text-xs font-medium text-brand-dark/50">
-                      {review.time}
+            {REVIEWS.map((review) => (
+              <a
+                href={GOOGLE_REVIEWS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                key={review.name}
+                className="flex flex-col gap-4 rounded-2xl border border-brand-soft/20 bg-bg-neutral/40 p-6 shadow-xs transition-shadow hover:shadow-md"
+              >
+                <div className="flex w-full items-center justify-between">
+                  <div className="flex gap-0.5 text-brand-primary">
+                    {Array.from({ length: review.rating }).map((_, i) => (
+                      <Star
+                        key={i}
+                        className="h-4 w-4 shrink-0 fill-brand-primary text-brand-primary"
+                      />
+                    ))}
+                  </div>
+                  <span className="font-body text-xs font-medium text-brand-dark/50">
+                    {review.time}
+                  </span>
+                </div>
+
+                <p className="font-body text-sm leading-relaxed text-brand-dark/90 italic sm:text-base">
+                  &quot;{review.content}&quot;
+                </p>
+
+                <hr className="my-1 border-brand-soft/10" />
+
+                <div className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-primary font-body text-sm font-bold text-white">
+                    {review.initials}
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="font-heading text-sm font-bold text-brand-dark">
+                      {review.name}
+                    </span>
+                    <span className="font-body text-xs font-medium text-brand-primary">
+                      {review.meta}
                     </span>
                   </div>
-
-                  <p className="font-body text-sm leading-relaxed text-brand-dark/90 italic sm:text-base">
-                    &quot;{review.content}&quot;
-                  </p>
-
-                  <hr className="my-1 border-brand-soft/10" />
-
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-primary font-body text-sm font-bold text-white">
-                      {review.initials}
-                    </div>
-                    <div className="flex flex-col">
-                      <span className="font-heading text-sm font-bold text-brand-dark">
-                        {review.name}
-                      </span>
-                      <span className="font-body text-xs font-medium text-brand-primary">
-                        {review.role}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="self-start">
-                    <span className="inline-block rounded-md bg-brand-soft/10 px-2 py-0.5 text-[10px] font-bold tracking-wider text-brand-dark/40 uppercase">
-                      {review.tag}
-                    </span>
-                  </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
+                </div>
+              </a>
+            ))}
           </div>
 
           <div className="mt-8 flex items-center justify-center gap-1.5 font-body text-xs text-brand-dark/50 sm:text-sm">
@@ -738,7 +735,9 @@ export default function ReumatologiaContent() {
           </span>
 
           <h2 className="text-3xl leading-tight text-white sm:text-4xl lg:text-5xl">
-            <span className="font-body font-bold">O primeiro passo é simples:</span>
+            <span className="font-body font-bold">
+              O primeiro passo é simples:
+            </span>
             <br />
             <span className="font-heading italic text-brand-soft">
               marcar a consulta
@@ -779,8 +778,8 @@ export default function ReumatologiaContent() {
           </div>
 
           <p className="mt-8 max-w-md border-t border-white/10 pt-6 font-body text-xs leading-normal text-white/60">
-            Dra. Juliana Mendonça • CRM-MG 100919 — Estética e termos médicos
-            de acordo com o Manual de Publicidade Médica do CFM.
+            Dra. Juliana Mendonça • CRM-MG 100919 — Estética e termos médicos de
+            acordo com o Manual de Publicidade Médica do CFM.
           </p>
         </div>
       </section>
