@@ -125,6 +125,14 @@ const REVIEWS: Review[] = [
     time: "Há 3 meses",
     initials: "P",
   },
+  {
+    name: "Alan Reis",
+    meta: "7 avaliações",
+    content: "Recomendo muito. Profissionais de altíssimo nível.",
+    rating: 5,
+    time: "Há 5 meses",
+    initials: "AR",
+  },
 ];
 
 const SPACES = [
